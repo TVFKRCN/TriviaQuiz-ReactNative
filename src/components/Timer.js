@@ -1,7 +1,10 @@
+import { useContext } from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import { CountdownCircleTimer } from 'react-native-countdown-circle-timer';
+import { QuizContext } from '../context/Context';
 
-const Timer = ({ questionIndex, timerIsPlaying, setTimerComplete }) => {
+const Timer = ({ questionIndex }) => {
+  const { setTimerComplete, timerIsPlaying } = useContext(QuizContext);
   return (
     <View style={styles.container}>
       <CountdownCircleTimer

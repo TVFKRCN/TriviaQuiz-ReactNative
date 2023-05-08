@@ -6,6 +6,7 @@ import axios from 'axios';
 import ProgressBar from '../components/ProgressBar';
 import Timer from '../components/Timer';
 import { Ionicons } from '@expo/vector-icons';
+import { QuizContext } from '../context/Context';
 
 const QuizScreen = ({ route, navigation }) => {
   const { selectedType, selectedDiffuculty, selectedCategory } = route.params;
@@ -22,6 +23,8 @@ const QuizScreen = ({ route, navigation }) => {
   const [timerIsPlaying, setTimerIsPlaying] = useState(true);
   const [timerComplete, setTimerComplete] = useState(false);
 
+  const [currentOptionSelected, setCurrentOptionSelected] = useState(null);
+
   useEffect(() => {
     axios.get(baseUrl).then((response) => {
       setQuestionData(response.data);
@@ -34,6 +37,7 @@ const QuizScreen = ({ route, navigation }) => {
     setQuestionIndex(questionIndex + 1);
     setTimerIsPlaying(true);
     setTimerComplete(false);
+    setCurrentOptionSelected(null);
   };
 
   let arr = [
@@ -46,36 +50,41 @@ const QuizScreen = ({ route, navigation }) => {
     .map(({ value }) => value);
 
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.topContainer}>
-        <View style={styles.icon}>
-          <Ionicons
-            name='return-up-back'
-            size={36}
-            color='black'
-            onPress={() => navigation.navigate('Settings')}
-          />
+    <QuizContext.Provider
+      value={{
+        timerComplete,
+        setTimerComplete,
+        timerIsPlaying,
+        setTimerIsPlaying,
+        currentOptionSelected,
+        setCurrentOptionSelected,
+      }}
+    >
+      <ScrollView style={styles.container}>
+        <View style={styles.topContainer}>
+          <View style={styles.icon}>
+            <Ionicons
+              name='return-up-back'
+              size={36}
+              color='black'
+              onPress={() => navigation.navigate('Settings')}
+            />
+          </View>
+          <Timer questionIndex={questionIndex} />
         </View>
-        <Timer
-          questionIndex={questionIndex}
-          timerIsPlaying={timerIsPlaying}
-          setTimerComplete={setTimerComplete}
+        <ProgressBar questionIndex={questionIndex} />
+        <Questions data={questionData.results[questionIndex]} />
+        <Answers
+          data={questionData.results[questionIndex]}
+          shuffled={shuffled}
         />
-      </View>
-      <ProgressBar questionIndex={questionIndex} />
-      <Questions data={questionData.results[questionIndex]} />
-      <Answers
-        data={questionData.results[questionIndex]}
-        shuffled={shuffled}
-        setTimerIsPlaying={setTimerIsPlaying}
-        timerComplete={timerComplete}
-      />
-      {questionIndex === 9 ? (
-        <Button title='Finish' onPress={() => {}} />
-      ) : (
-        <Button title='Next' onPress={questionIndexHandler} />
-      )}
-    </ScrollView>
+        {questionIndex === 9 ? (
+          <Button title='Finish' onPress={() => {}} />
+        ) : (
+          <Button title='Next' onPress={questionIndexHandler} />
+        )}
+      </ScrollView>
+    </QuizContext.Provider>
   );
 };
 

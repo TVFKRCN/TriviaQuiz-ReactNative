@@ -1,10 +1,16 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, Alert } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { QuizContext } from '../context/Context';
 
-const Answers = ({ data, shuffled, setTimerIsPlaying, timerComplete }) => {
+const Answers = ({ data, shuffled }) => {
+  const {
+    timerComplete,
+    setTimerIsPlaying,
+    currentOptionSelected,
+    setCurrentOptionSelected,
+  } = useContext(QuizContext);
   const [correctOption, setCorrectOption] = useState(null);
-  const [currentOptionSelected, setCurrentOptionSelected] = useState(null);
 
   const controlHandler = (i) => {
     setCurrentOptionSelected(i);

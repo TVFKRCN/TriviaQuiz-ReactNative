@@ -18,7 +18,7 @@ import { QuizContext } from '../context/Context';
 const QuizScreen = ({ route, navigation }) => {
   const { selectedType, selectedDiffuculty, selectedCategory } = route.params;
 
-  const baseUrl = `https://opentdb.com/api.php?amount=10${
+  const baseUrl = `https://opentdb.com/api.php?amount=10&encode=url3986${
     selectedCategory === null ? '' : `&category=${selectedCategory}`
   }${selectedDiffuculty === null ? '' : `&diffuculty=${selectedDiffuculty}`}${
     selectedType === null ? '' : `&type=${selectedType}`

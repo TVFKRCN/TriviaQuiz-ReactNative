@@ -5,7 +5,9 @@ const Questions = ({ data }) => {
   return (
     <View style={styles.container}>
       <View style={styles.questionBox}>
-        <Text style={styles.questionText}>{data.question}</Text>
+        <Text style={styles.questionText}>
+          {decodeURIComponent(data.question)}
+        </Text>
       </View>
     </View>
   );

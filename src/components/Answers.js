@@ -39,7 +39,7 @@ const Answers = ({ data, shuffled }) => {
               style={styles.box}
               onPress={() => controlHandler(i)}
             >
-              <Text style={styles.text}>{i}</Text>
+              <Text style={styles.text}>{decodeURIComponent(i)}</Text>
               {i === correctOption ? (
                 <View style={styles.checkBox}>
                   <MaterialCommunityIcons

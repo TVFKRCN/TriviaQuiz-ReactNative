@@ -7,7 +7,6 @@ const HomeScreen = ({ navigation }) => {
     <View style={styles.container}>
       <LottieView
         autoPlay
-        loop={false}
         source={require('../../assets/28891-quiz-bump.json')}
         style={styles.lottie}
         resizeMode='cover'
@@ -29,6 +28,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#272D41',
   },
   lottie: {
     height: 200,
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingVertical: 4,
     paddingHorizontal: 20,
-    marginBottom: 10,
+    marginTop: 20,
   },
   buttonText: {
     fontSize: 28,

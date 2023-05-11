@@ -124,60 +124,62 @@ const Settings = ({ navigation }) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
 
   return (
-    <View style={styles.container}>
-      <View style={styles.settings}>
-        <Dropdown
-          data={categoryData}
-          style={styles.dropdown}
-          selectedTextStyle={styles.selectedTextStyle}
-          placeholderStyle={styles.placeholderStyle}
-          valueField='value'
-          labelField='lable'
-          placeholder='Any Category'
-          onChange={(e) => {
-            setSelectedCategory(e.value);
-          }}
-        />
+    <View style={styles.bg}>
+      <View style={styles.container}>
+        <View style={styles.settings}>
+          <Dropdown
+            data={categoryData}
+            style={styles.dropdown}
+            selectedTextStyle={styles.selectedTextStyle}
+            placeholderStyle={styles.placeholderStyle}
+            valueField='value'
+            labelField='lable'
+            placeholder='Any Category'
+            onChange={(e) => {
+              setSelectedCategory(e.value);
+            }}
+          />
 
-        <Dropdown
-          data={difficultyData}
-          style={styles.dropdown}
-          selectedTextStyle={styles.selectedTextStyle}
-          placeholderStyle={styles.placeholderStyle}
-          valueField='value'
-          labelField='lable'
-          placeholder='Any Difficulty'
-          onChange={(e) => {
-            setSelectedDiffuculty(e.value);
-          }}
-        />
+          <Dropdown
+            data={difficultyData}
+            style={styles.dropdown}
+            selectedTextStyle={styles.selectedTextStyle}
+            placeholderStyle={styles.placeholderStyle}
+            valueField='value'
+            labelField='lable'
+            placeholder='Any Difficulty'
+            onChange={(e) => {
+              setSelectedDiffuculty(e.value);
+            }}
+          />
 
-        <Dropdown
-          data={typeData}
-          style={styles.dropdown}
-          selectedTextStyle={styles.selectedTextStyle}
-          placeholderStyle={styles.placeholderStyle}
-          valueField='value'
-          labelField='lable'
-          placeholder='Any Type'
-          onChange={(e) => {
-            setSelectedType(e.value);
-          }}
-        />
-      </View>
-      <View style={styles.buttonView}>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() =>
-            navigation.navigate('Quiz', {
-              selectedType: selectedType,
-              selectedDiffuculty: selectedDiffuculty,
-              selectedCategory: selectedCategory,
-            })
-          }
-        >
-          <Text style={styles.buttonText}>Let's Go!</Text>
-        </TouchableOpacity>
+          <Dropdown
+            data={typeData}
+            style={styles.dropdown}
+            selectedTextStyle={styles.selectedTextStyle}
+            placeholderStyle={styles.placeholderStyle}
+            valueField='value'
+            labelField='lable'
+            placeholder='Any Type'
+            onChange={(e) => {
+              setSelectedType(e.value);
+            }}
+          />
+        </View>
+        <View style={styles.buttonView}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() =>
+              navigation.navigate('Quiz', {
+                selectedType: selectedType,
+                selectedDiffuculty: selectedDiffuculty,
+                selectedCategory: selectedCategory,
+              })
+            }
+          >
+            <Text style={styles.buttonText}>Let's Go!</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
@@ -186,6 +188,14 @@ const Settings = ({ navigation }) => {
 export default Settings;
 
 const styles = StyleSheet.create({
+  bg: {
+    backgroundColor: '#272D41',
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    bottom: 0,
+    top: 0,
+  },
   container: {
     marginTop: 50,
     alignItems: 'center',
@@ -211,7 +221,7 @@ const styles = StyleSheet.create({
     marginLeft: 8,
   },
   buttonView: {
-    marginTop: 10,
+    marginTop: 30,
   },
   button: {
     backgroundColor: 'chocolate',

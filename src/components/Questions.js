@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
   },
   questionBox: {
     justifyContent: 'center',
-    backgroundColor: 'grey',
+    backgroundColor: 'sandybrown',
     borderRadius: 20,
     marginVertical: 20,
     height: 150,

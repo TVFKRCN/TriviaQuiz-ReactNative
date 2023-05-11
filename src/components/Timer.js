@@ -12,7 +12,7 @@ const Timer = ({ questionIndex }) => {
         isPlaying={timerIsPlaying}
         duration={30}
         size={120}
-        colors={['#0000ff', '#00ffff', '#f08080', '#ff0000']}
+        colors={['#0000ff', '#00ffff', '#F7B801', '#A30000']}
         colorsTime={[30, 20, 10, 0]}
         onComplete={() => setTimerComplete(true)}
       >
@@ -43,9 +43,12 @@ const styles = StyleSheet.create({
   },
   text: {
     textAlign: 'center',
+    color: 'ghostwhite',
+    fontSize: 18,
   },
   textTime: {
     textAlign: 'center',
-    fontSize: 30,
+    fontSize: 36,
+    color: 'ghostwhite',
   },
 });

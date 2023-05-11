@@ -1,11 +1,18 @@
-import { Button, ScrollView, StyleSheet, Text, View } from 'react-native';
+import {
+  Button,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+} from 'react-native';
 import { useState, useEffect } from 'react';
 import Questions from '../components/Questions';
 import Answers from '../components/Answers';
 import axios from 'axios';
 import ProgressBar from '../components/ProgressBar';
 import Timer from '../components/Timer';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, Entypo } from '@expo/vector-icons';
 import { QuizContext } from '../context/Context';
 
 const QuizScreen = ({ route, navigation }) => {
@@ -24,6 +31,7 @@ const QuizScreen = ({ route, navigation }) => {
   const [timerComplete, setTimerComplete] = useState(false);
 
   const [currentOptionSelected, setCurrentOptionSelected] = useState(null);
+  const [score, setScore] = useState(0);
 
   useEffect(() => {
     axios.get(baseUrl).then((response) => {
@@ -58,31 +66,63 @@ const QuizScreen = ({ route, navigation }) => {
         setTimerIsPlaying,
         currentOptionSelected,
         setCurrentOptionSelected,
+        score,
+        setScore,
       }}
     >
-      <ScrollView style={styles.container}>
-        <View style={styles.topContainer}>
-          <View style={styles.icon}>
-            <Ionicons
-              name='return-up-back'
-              size={36}
-              color='black'
-              onPress={() => navigation.navigate('Settings')}
-            />
+      <ScrollView style={styles.bg}>
+        <View style={styles.container}>
+          <View style={styles.topContainer}>
+            <View style={styles.icon}>
+              <Ionicons
+                name='return-up-back'
+                size={36}
+                color='black'
+                onPress={() => navigation.navigate('Settings')}
+              />
+            </View>
+            <Timer questionIndex={questionIndex} />
           </View>
-          <Timer questionIndex={questionIndex} />
+          <ProgressBar questionIndex={questionIndex} />
+          <Questions data={questionData.results[questionIndex]} />
+          <Answers
+            data={questionData.results[questionIndex]}
+            shuffled={shuffled}
+          />
+          {questionIndex === 9 ? (
+            <TouchableOpacity
+              style={styles.buttonFinish}
+              onPress={() => navigation.navigate('Score', { score: score })}
+            >
+              <Entypo
+                style={styles.iconTrophy}
+                name='trophy'
+                size={24}
+                color='black'
+              />
+              <Text style={styles.buttonText}>Finish</Text>
+              <Entypo
+                style={styles.iconTrophy}
+                name='trophy'
+                size={24}
+                color='black'
+              />
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity
+              style={styles.button}
+              onPress={questionIndexHandler}
+            >
+              <Text style={styles.buttonText}>Next Question</Text>
+              <Ionicons
+                style={styles.nexticon}
+                name='arrow-redo'
+                size={24}
+                color='black'
+              />
+            </TouchableOpacity>
+          )}
         </View>
-        <ProgressBar questionIndex={questionIndex} />
-        <Questions data={questionData.results[questionIndex]} />
-        <Answers
-          data={questionData.results[questionIndex]}
-          shuffled={shuffled}
-        />
-        {questionIndex === 9 ? (
-          <Button title='Finish' onPress={() => {}} />
-        ) : (
-          <Button title='Next' onPress={questionIndexHandler} />
-        )}
       </ScrollView>
     </QuizContext.Provider>
   );
@@ -91,18 +131,49 @@ const QuizScreen = ({ route, navigation }) => {
 export default QuizScreen;
 
 const styles = StyleSheet.create({
+  bg: {
+    backgroundColor: '#272D41',
+  },
   container: {
     marginTop: 30,
   },
   topContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
-    // justifyContent: 'space-between',
   },
   icon: {
     position: 'absolute',
     left: 10,
-    backgroundColor: 'pink',
+    backgroundColor: 'chocolate',
     borderRadius: 20,
+  },
+  button: {
+    backgroundColor: 'chocolate',
+    borderRadius: 10,
+    paddingVertical: 4,
+    marginTop: 20,
+    marginHorizontal: 20,
+    alignItems: 'center',
+  },
+  buttonFinish: {
+    backgroundColor: 'chocolate',
+    borderRadius: 10,
+    paddingVertical: 4,
+    marginTop: 20,
+    marginHorizontal: 20,
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  buttonText: {
+    fontSize: 24,
+  },
+  nexticon: {
+    position: 'absolute',
+    right: 20,
+    top: 6,
+  },
+  iconTrophy: {
+    marginHorizontal: 10,
   },
 });

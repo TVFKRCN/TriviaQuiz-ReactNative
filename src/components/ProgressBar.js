@@ -9,6 +9,7 @@ const ProgressBar = ({ questionIndex }) => {
         width={350}
         height={15}
         borderRadius={8}
+        color='chocolate'
       />
       <Text style={styles.text}>{questionIndex + 1}/10</Text>
     </View>
@@ -28,5 +29,6 @@ const styles = StyleSheet.create({
   text: {
     position: 'absolute',
     right: 30,
+    color: 'white',
   },
 });

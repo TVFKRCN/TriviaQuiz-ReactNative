@@ -9,13 +9,19 @@ const Answers = ({ data, shuffled }) => {
     setTimerIsPlaying,
     currentOptionSelected,
     setCurrentOptionSelected,
+    score,
+    setScore,
   } = useContext(QuizContext);
+
   const [correctOption, setCorrectOption] = useState(null);
 
   const controlHandler = (i) => {
     setCurrentOptionSelected(i);
     setCorrectOption(data.correct_answer);
     setTimerIsPlaying(false);
+    if (i === data.correct_answer) {
+      setScore(score + 1);
+    }
   };
 
   return (
@@ -75,7 +81,7 @@ const styles = StyleSheet.create({
   },
   box: {
     justifyContent: 'center',
-    backgroundColor: 'deepskyblue',
+    backgroundColor: 'moccasin',
     borderRadius: 30,
     marginVertical: 10,
     height: 60,
